@@ -1,28 +1,37 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Project } from './project.model';
+import { EventsImpact } from './eventImpact.model';
 
-@Entity('events')
+@Entity('Events')
 export class Event{
-    @PrimaryColumn()
-    id: number;
+    @PrimaryGeneratedColumn({ type: 'bigint' })
+    id: string;
 
-    @Column()
+    @Column({type: 'nvarchar', length: 200, nullable: false})
     name: string;
 
-    @Column()
+    @Column({type: 'date', nullable: false})
     event_date: Date;
 
-    @Column()
+    @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
     description: string;
 
-    @Column()
-    project_id: number;
+    @Column({type: 'bigint', nullable: false})
+    project_id: string;
 
-    @Column()
+    @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()'})
     created_at: Date;
 
-    @Column()
+    @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()' })
     updated_at: Date;
 
-    @Column()
-    deleted_at: Date;
+    @Column({ type: 'datetime2', nullable: true })
+    deleted_at: Date | null;
+
+    @ManyToOne(() => Project, (project) => project.events)
+    @JoinColumn({ name: 'project_id' })
+    project: Project;
+
+    @OneToMany(() => EventsImpact, (impact) => impact.event)
+    impacts: EventsImpact[];
 }

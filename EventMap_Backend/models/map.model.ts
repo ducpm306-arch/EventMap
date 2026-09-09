@@ -1,25 +1,26 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Project } from './project.model';
 
-@Entity('maps')
+@Entity('Maps')
 export class Map {
-    @PrimaryColumn()
-    id: number;
+  @PrimaryGeneratedColumn({ type: 'bigint' })
+  id: string;
 
-    @Column()
-    event_id: number;
+  @Column({ type: 'nvarchar', length: 200, nullable: false })
+  name: string;
 
-    @Column()
-    entity_group_id: number;
+  @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
+  map_url: string;
 
-    @Column()
-    entity_id: number;
+  @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()' })
+  created_at: Date;
 
-    @Column()
-    created_at: Date;
-    
-    @Column()
-    updated_at: Date;
-    
-    @Column()
-    deleted_at: Date;
+  @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()' })
+  updated_at: Date;
+
+  @Column({ type: 'datetime2', nullable: true })
+  deleted_at: Date | null;
+
+  @OneToMany(() => Project, (project) => project.map)
+  projects: Project[];
 }

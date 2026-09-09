@@ -4,6 +4,12 @@ GO
 USE EventMap;
 GO
 
+SET ANSI_NULLS ON;
+GO
+
+SET QUOTED_IDENTIFIER ON;
+GO
+
 CREATE TABLE Accounts(
     id              BIGINT PRIMARY KEY IDENTITY(1,1),
     name            NVARCHAR(200) NOT NULL,
@@ -55,7 +61,7 @@ CREATE TABLE Events(
 );
 GO
 
-CREATE TABLE EntityGroups(
+CREATE TABLE ObjectGroups(
     id              BIGINT PRIMARY KEY IDENTITY(1,1),
     name            NVARCHAR(200) NOT NULL,
     color_hex       CHAR(7) NOT NULL,
@@ -68,12 +74,12 @@ CREATE TABLE EntityGroups(
 );
 GO
 
-CREATE TABLE Entities(
+CREATE TABLE Objects(
     id                  BIGINT PRIMARY KEY IDENTITY(1,1),
     name                NVARCHAR(200) NOT NULL,
     boundary            NVARCHAR(MAX) NOT NULL,
     description         NVARCHAR(MAX) NOT NULL,
-    entity_group_id     BIGINT NULL,
+    object_group_id     BIGINT NULL,
     project_id          BIGINT NULL,
 
     created_at          DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
@@ -85,14 +91,14 @@ GO
 CREATE TABLE EventsImpacts(
     id                  BIGINT PRIMARY KEY IDENTITY(1,1),
     event_id            BIGINT NOT NULL,
-    entity_group_id     BIGINT NULL,
-    entity_id           BIGINT NULL,
+    object_group_id     BIGINT NULL,
+    object_id           BIGINT NULL,
 
     created_at          DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
     updated_at          DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
     deleted_at          DATETIME2 NULL,
 
-    CONSTRAINT chk_eventsimpacts_has_target CHECK (entity_group_id IS NOT NULL OR entity_id IS NOT NULL)
+    CONSTRAINT chk_eventsimpacts_has_target CHECK (object_group_id IS NOT NULL OR object_id IS NOT NULL)
 );
 GO
 
@@ -105,38 +111,38 @@ ADD CONSTRAINT fk_projects_accounts FOREIGN KEY (account_id) REFERENCES Accounts
 ALTER TABLE Events
 ADD CONSTRAINT fk_events_projects FOREIGN KEY (project_id) REFERENCES Projects(id);
 
-ALTER TABLE EntityGroups
-ADD CONSTRAINT fk_entitygroups_projects FOREIGN KEY (project_id) REFERENCES Projects(id);
+ALTER TABLE ObjectGroups
+ADD CONSTRAINT fk_objectgroups_projects FOREIGN KEY (project_id) REFERENCES Projects(id);
 
-ALTER TABLE Entities
-ADD CONSTRAINT fk_entities_entitygroups FOREIGN KEY (entity_group_id) REFERENCES EntityGroups(id);
+ALTER TABLE Objects
+ADD CONSTRAINT fk_objects_objectgroups FOREIGN KEY (object_group_id) REFERENCES ObjectGroups(id);
 
-ALTER TABLE Entities
-ADD CONSTRAINT fk_entities_projects FOREIGN KEY (project_id) REFERENCES Projects(id);
+ALTER TABLE Objects
+ADD CONSTRAINT fk_objects_projects FOREIGN KEY (project_id) REFERENCES Projects(id);
 
 ALTER TABLE EventsImpacts
 ADD CONSTRAINT fk_eventsimpacts_events FOREIGN KEY (event_id) REFERENCES Events(id);
 
 ALTER TABLE EventsImpacts
-ADD CONSTRAINT fk_eventsimpacts_entitygroups FOREIGN KEY (entity_group_id) REFERENCES EntityGroups(id);
+ADD CONSTRAINT fk_eventsimpacts_objectgroups FOREIGN KEY (object_group_id) REFERENCES ObjectGroups(id);
 
 ALTER TABLE EventsImpacts
-ADD CONSTRAINT fk_eventsimpacts_entities FOREIGN KEY (entity_id) REFERENCES Entities(id);
+ADD CONSTRAINT fk_eventsimpacts_objects FOREIGN KEY (object_id) REFERENCES Objects(id);
 GO
 
 CREATE INDEX idx_projects_map_id ON Projects(map_id);
 CREATE INDEX idx_projects_account_id ON Projects(account_id);
 CREATE INDEX idx_events_project_id ON Events(project_id);
 CREATE INDEX idx_events_event_date ON Events(event_date);
-CREATE INDEX idx_entitygroups_project_id ON EntityGroups(project_id);
-CREATE INDEX idx_entities_entity_group_id ON Entities(entity_group_id);
-CREATE INDEX idx_entities_project_id ON Entities(project_id);
+CREATE INDEX idx_objectgroups_project_id ON ObjectGroups(project_id);
+CREATE INDEX idx_objects_object_group_id ON Objects(object_group_id);
+CREATE INDEX idx_objects_project_id ON Objects(project_id);
 CREATE INDEX idx_eventsimpacts_event_id ON EventsImpacts(event_id);
-CREATE INDEX idx_eventsimpacts_entity_group_id ON EventsImpacts(entity_group_id);
-CREATE INDEX idx_eventsimpacts_entity_id ON EventsImpacts(entity_id);
+CREATE INDEX idx_eventsimpacts_object_group_id ON EventsImpacts(object_group_id);
+CREATE INDEX idx_eventsimpacts_object_id ON EventsImpacts(object_id);
 GO
 
-CREATE UNIQUE INDEX uq_eventsimpacts_event_entity
-    ON EventsImpacts(event_id, entity_id)
-    WHERE entity_id IS NOT NULL;
+CREATE UNIQUE INDEX uq_eventsimpacts_event_object
+    ON EventsImpacts(event_id, object_id)
+    WHERE object_id IS NOT NULL;
 GO

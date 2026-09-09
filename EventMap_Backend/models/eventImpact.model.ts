@@ -1,25 +1,40 @@
-import { Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Event } from './event.model';
+import { ObjectGroup } from './objectGroup.model';
+import { ObjectEntity } from './object.model';
 
-@Entity('eventsImpacts')
+@Entity('EventsImpacts')
 export class EventsImpact {
-    @PrimaryColumn()
-    id: number;
+    @PrimaryGeneratedColumn({ type: 'bigint' })
+    id: string;
 
-    @Column()
-    event_id: number;
+    @Column({ type: 'bigint', nullable: false })
+    event_id: string;
 
-    @Column()
-    entity_group_id: number;
+    @Column({ type: 'bigint', nullable: true })
+    object_group_id: string | null;
 
-    @Column()
-    entity_id: number;
+    @Column({ type: 'bigint', nullable: true })
+    object_id: string | null;
     
-    @Column()
+    @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()'})
     created_at: Date;
-    
-    @Column()
+
+    @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()' })
     updated_at: Date;
-    
-    @Column()
-    deleted_at: Date;
+
+    @Column({ type: 'datetime2', nullable: true })
+    deleted_at: Date | null;
+
+    @ManyToOne(() => Event, (event) => event.impacts)
+    @JoinColumn({ name: 'event_id' })
+    event: Event;
+
+    @ManyToOne(() => ObjectGroup, (group) => group.impacts, { nullable: true })
+    @JoinColumn({ name: 'object_group_id' })
+    objectGroup: ObjectGroup | null;
+
+    @ManyToOne(() => ObjectEntity, (object) => object.impacts, { nullable: true })
+    @JoinColumn({ name: 'object_id' })
+    object: ObjectEntity | null;
 }

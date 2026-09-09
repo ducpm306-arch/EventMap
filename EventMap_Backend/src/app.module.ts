@@ -6,18 +6,28 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { Account } from '../models/account.model';
+import { Map } from '../models/map.model';
+import { Project } from '../models/project.model';
+import { Event } from '../models/event.model';
+import { ObjectEntity } from '../models/object.model';
+import { ObjectGroup } from '../models/objectGroup.model';
+import { EventsImpact } from '../models/eventImpact.model';
 
 @Module({
   imports: [
   TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'mssql',
       host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT) || 3306,
+      port: parseInt(process.env.DB_PORT) || 1433,
       username: process.env.DB_USERNAME || 'root',
-      password: process.env.DB_PASSWORD || '',
+      password: process.env.DB_PASSWORD || '123456789',
       database: process.env.DB_NAME || 'EventMap',
-      autoLoadEntities: true,
-      synchronize: true,
+      entities: [Account, Map, Project, Event, ObjectEntity, ObjectGroup, EventsImpact],
+      options: {
+        trustServerCertificate: true,
+      },
+      synchronize: false,
   }),
     TaskModule,
     AuthModule,
