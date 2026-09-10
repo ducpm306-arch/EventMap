@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { AccountService } from "./account.service";
 import { AccountDto } from "./dto/account.dto";
 
@@ -12,22 +12,22 @@ export class AccountController {
     }
 
     @Post()
-    createAccount(@Body() dto: TaskDto) {
+    createAccount(@Body() dto: AccountDto) {
         return this.accountService.createAccount(dto);
     }
 
     @Get('/:id')
-    detailAccount(@Param('id', ParseIntPipe) id: number) {
+    detailAccount(@Param('id') id: string) {
         return this.accountService.detailAccount(id);
     }
 
     @Put('/:id')
-    updateAccount( @Body() dto: AccountDto, @Param('id', ParseIntPipe) id: number ) {
+    updateAccount( @Body() dto: AccountDto, @Param('id') id: string ) {
         return this.accountService.updateAccount(dto, id);
     }
 
     @Delete('/:id')
-    deleteAccount(@Param('id', ParseIntPipe) id: number) {
+    deleteAccount(@Param('id') id: string) {
         return this.accountService.deleteAccount(id);
     }
 }

@@ -11,25 +11,25 @@ export class AccountService {
         private accountRepo: Repository<Account>,
     ) {}
 
-    getAccount: Promise<Account[]> {
-        return this.taskRepo.find();
+    getAccount(): Promise<Account[]> {
+        return this.accountRepo.find();
     }
 
     createAccount(dto: AccountDto): Promise<Account> {
         const account = this.accountRepo.create(dto);
-        return this.accountReoi.save(account);
+        return this.accountRepo.save(account);
     }
 
-    detailAccount(id: number): Promise<Account | null> {
+    detailAccount(id: string): Promise<Account | null> {
         return this.accountRepo.findOneBy({ id });
     }
 
-    async updateAccount(dto: AccountDto, id: number): Promise<Account | null> {
+    async updateAccount(dto: AccountDto, id: string): Promise<Account | null> {
         await this.accountRepo.update(id, dto);
-        return this.detailTask(id);
+        return this.detailAccount(id);
     }
 
-    async deleteAccount(id: number): Promise<boolean> {
+    async deleteAccount(id: string): Promise<boolean> {
         const result = await this.accountRepo.delete(id);
         return (result.affected ?? 0) > 0;
     }
