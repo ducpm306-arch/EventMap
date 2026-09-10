@@ -11,7 +11,7 @@ export class AccountService {
         private accountRepo: Repository<Account>,
     ) {}
 
-    getAccount: Promise<Task[]> {
+    getAccount: Promise<Account[]> {
         return this.taskRepo.find();
     }
 
