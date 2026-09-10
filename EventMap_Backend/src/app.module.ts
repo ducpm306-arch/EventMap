@@ -13,6 +13,7 @@ import { Event } from '../modules/events/event.model';
 import { ObjectEntity } from '../modules/objects/object.model';
 import { ObjectGroup } from '../modules/objectGroups/objectGroup.model';
 import { EventsImpact } from '../modules/eventImpacts/eventImpact.model';
+import { AccountModule } from '../modules/accounts/account.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { EventsImpact } from '../modules/eventImpacts/eventImpact.model';
   }),
     TaskModule,
     AuthModule,
+    AccountModule,
     ThrottlerModule.forRoot({
       throttlers: [{ ttl: 60000, limit: 10 }],
     }),
