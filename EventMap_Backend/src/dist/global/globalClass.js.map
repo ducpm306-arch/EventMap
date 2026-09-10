@@ -1,1 +1,0 @@
-{"version":3,"file":"globalClass.js","sourceRoot":"","sources":["../../global/globalClass.ts"],"names":[],"mappings":";;;AAAA,MAAa,YAAY;IACvB,IAAI,CAAiB;IACrB,UAAU,CAAS;IACnB,OAAO,CAAS;IAEhB,YAAY,IAAoB,EAAE,UAAkB,EAAE,OAAe;QACnE,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,UAAU,GAAG,UAAU,CAAC;QAC7B,IAAI,CAAC,OAAO,GAAG,OAAO,CAAC;IACzB,CAAC;CACF;AAVD,oCAUC"}
