@@ -1,19 +1,16 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Project } from './project.model';
+import { Project } from '../projects/project.model';
 
-@Entity('Accounts')
-export class Account {
+@Entity('Maps')
+export class Map {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: string;
 
   @Column({ type: 'nvarchar', length: 200, nullable: false })
   name: string;
 
-  @Column({ type: 'nvarchar', length: 200, nullable: false, unique: true })
-  email: string;
-
-  @Column({ type: 'nvarchar', length: 200, nullable: false })
-  password_hash: string;
+  @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
+  map_url: string;
 
   @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()' })
   created_at: Date;
@@ -24,6 +21,6 @@ export class Account {
   @Column({ type: 'datetime2', nullable: true })
   deleted_at: Date | null;
 
-  @OneToMany(() => Project, (project) => project.account)
+  @OneToMany(() => Project, (project) => project.map)
   projects: Project[];
 }

@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Event } from './event.model';
-import { ObjectGroup } from './objectGroup.model';
-import { ObjectEntity } from './object.model';
+import { Event } from '../events/event.model';
+import { ObjectGroup } from '../objectGroups/objectGroup.model';
+import { ObjectEntity } from '../objects/object.model';
 
 @Entity('EventsImpacts')
 export class EventsImpact {

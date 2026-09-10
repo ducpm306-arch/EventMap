@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, JoinColumn, PrimaryGeneratedColumn } from 'typeorm';
-import { Project } from './project.model';
-import { EventsImpact } from './eventImpact.model';
+import { Project } from '../projects/project.model';
+import { EventsImpact } from '../eventImpacts/eventImpact.model';
 
 @Entity('Events')
 export class Event{

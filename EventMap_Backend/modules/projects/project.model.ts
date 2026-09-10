@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Account } from './account.model';
-import { Map } from './map.model';
-import { Event } from './event.model';
-import { ObjectEntity } from './object.model';
-import { ObjectGroup } from './objectGroup.model';
+import { Account } from '../accounts/account.model';
+import { Map } from '../maps/map.model';
+import { Event } from '../events/event.model';
+import { ObjectEntity } from '../objects/object.model';
+import { ObjectGroup } from '../objectGroups/objectGroup.model';
 
 @Entity('Projects')
 export class Project {

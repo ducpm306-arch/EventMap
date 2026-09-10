@@ -1,26 +1,23 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { ObjectGroup } from './objectGroup.model';
-import { Project } from './project.model';
-import { EventsImpact } from './eventImpact.model';
+import { Project } from '../projects/project.model';
+import { ObjectEntity } from '../objects/object.model';
+import { EventsImpact } from '../eventImpacts/eventImpact.model';
 
-@Entity('Objects')
-export class ObjectEntity {
+@Entity('ObjectGroups')
+export class ObjectGroup {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: string;
 
     @Column({ type: 'nvarchar', length: 200, nullable: false })
     name: string;
 
-    @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
-    boundary: string;
+    @Column({ type: 'char', length: 7, nullable: false })
+    color_hex: string;
 
     @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
     description: string;
 
     @Column({ type: 'bigint', nullable: true })
-    object_group_id: number | null;
-
-    @Column({ type: 'bigint', nullable: false })
     project_id: string | null;
 
     @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()'})
@@ -32,16 +29,13 @@ export class ObjectEntity {
     @Column({ type: 'datetime2', nullable: true })
     deleted_at: Date | null;
 
-    @ManyToOne(() => ObjectGroup, (group) => group.objects, { nullable: true })
-    @JoinColumn({ name: 'object_group_id' })
-    objectGroup: ObjectGroup | null;
-
-    @ManyToOne(() => Project, (project) => project.objects, { nullable: true })
+    @ManyToOne(() => Project, (project) => project.objectGroups, { nullable: true })
     @JoinColumn({ name: 'project_id' })
     project: Project | null;
 
-    @OneToMany(() => EventsImpact, (impact) => impact.object)
+    @OneToMany(() => ObjectEntity, (object) => object.objectGroup)
+    objects: ObjectEntity[];
+
+    @OneToMany(() => EventsImpact, (impact) => impact.objectGroup)
     impacts: EventsImpact[];
 }
-
-export { ObjectEntity as Object };

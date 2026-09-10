@@ -6,13 +6,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
-import { Account } from '../models/account.model';
-import { Map } from '../models/map.model';
-import { Project } from '../models/project.model';
-import { Event } from '../models/event.model';
-import { ObjectEntity } from '../models/object.model';
-import { ObjectGroup } from '../models/objectGroup.model';
-import { EventsImpact } from '../models/eventImpact.model';
+import { Account } from '../modules/accounts/account.model';
+import { Map } from '../modules/maps/map.model';
+import { Project } from '../modules/projects/project.model';
+import { Event } from '../modules/events/event.model';
+import { ObjectEntity } from '../modules/objects/object.model';
+import { ObjectGroup } from '../modules/objectGroups/objectGroup.model';
+import { EventsImpact } from '../modules/eventImpacts/eventImpact.model';
 
 @Module({
   imports: [
