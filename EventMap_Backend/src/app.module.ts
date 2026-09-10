@@ -6,14 +6,20 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
-import { Account } from '../modules/accounts/account.model';
-import { Map } from '../modules/maps/map.model';
-import { Project } from '../modules/projects/project.model';
-import { Event } from '../modules/events/event.model';
-import { ObjectEntity } from '../modules/objects/object.model';
-import { ObjectGroup } from '../modules/objectGroups/objectGroup.model';
-import { EventsImpact } from '../modules/eventImpacts/eventImpact.model';
-import { AccountModule } from '../modules/accounts/account.module';
+import { Account } from './modules/accounts/account.model';
+import { Map } from './modules/maps/map.model';
+import { Project } from './modules/projects/project.model';
+import { Event } from './modules/events/event.model';
+import { ObjectEntity } from './modules/objects/object.model';
+import { ObjectGroup } from './modules/objectGroups/objectGroup.model';
+import { EventsImpact } from './modules/eventImpacts/eventImpact.model';
+import { AccountModule } from './modules/accounts/account.module';
+import { EventImpactsModule } from 'src/modules/eventImpacts/eventImpact.module';
+import { EventModule } from 'src/modules/events/event.module';
+import { MapModule } from 'src/modules/maps/map.module';
+import { ObjectGroupModule } from 'src/modules/objectGroups/objectGroup.module';
+import { ObjectModule } from 'src/modules/objects/object.module';
+import { ProjectModule } from 'src/modules/projects/project.module';
 
 @Module({
   imports: [
@@ -30,9 +36,13 @@ import { AccountModule } from '../modules/accounts/account.module';
       },
       synchronize: false,
   }),
-    TaskModule,
-    AuthModule,
     AccountModule,
+    EventImpactsModule,
+    EventModule,
+    MapModule,
+    ObjectGroupModule,
+    ObjectModule,
+    ProjectModule,
     ThrottlerModule.forRoot({
       throttlers: [{ ttl: 60000, limit: 10 }],
     }),
