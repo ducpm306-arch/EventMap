@@ -8,15 +8,15 @@ import { Account } from './modules/accounts/account.model';
 import { Map } from './modules/maps/map.model';
 import { Project } from './modules/projects/project.model';
 import { Event } from './modules/events/event.model';
-import { Object } from './modules/objects/object.model';
-import { ObjectGroup } from './modules/objectGroups/objectGroup.model';
+import { Item } from './modules/items/item.model';
+import { ItemGroup } from './modules/itemGroups/itemGroup.model';
 import { EventsImpact } from './modules/eventImpacts/eventImpact.model';
 import { AccountModule } from './modules/accounts/account.module';
 import { EventImpactsModule } from 'src/modules/eventImpacts/eventImpact.module';
 import { EventModule } from 'src/modules/events/event.module';
 import { MapModule } from 'src/modules/maps/map.module';
-import { ObjectGroupModule } from 'src/modules/objectGroups/objectGroup.module';
-import { ObjectModule } from 'src/modules/objects/object.module';
+import { ItemGroupModule } from 'src/modules/itemGroups/itemGroup.module';
+import { ItemModule } from 'src/modules/items/item.module';
 import { ProjectModule } from 'src/modules/projects/project.module';
 
 @Module({
@@ -28,7 +28,7 @@ import { ProjectModule } from 'src/modules/projects/project.module';
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '123456789',
       database: process.env.DB_NAME || 'EventMap',
-      entities: [Account, Map, Project, Event, Object, ObjectGroup, EventsImpact],
+      entities: [Account, Map, Project, Event, Item, ItemGroup, EventsImpact],
       options: {
         trustServerCertificate: true,
       },
@@ -38,8 +38,8 @@ import { ProjectModule } from 'src/modules/projects/project.module';
     EventImpactsModule,
     EventModule,
     MapModule,
-    ObjectGroupModule,
-    ObjectModule,
+    ItemGroupModule,
+    ItemModule,
     ProjectModule,
     ThrottlerModule.forRoot({
       throttlers: [{ ttl: 60000, limit: 10 }],

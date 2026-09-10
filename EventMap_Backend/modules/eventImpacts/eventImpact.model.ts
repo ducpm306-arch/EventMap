@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Event } from '../events/event.model';
-import { ObjectGroup } from '../objectGroups/objectGroup.model';
-import { Object } from '../objects/object.model';
+import { ItemGroup } from '../itemGroups/itemGroup.model';
+import { Item } from '../items/item.model';
 
 @Entity('EventsImpacts')
 export class EventsImpact {
@@ -12,10 +12,10 @@ export class EventsImpact {
     event_id: string;
 
     @Column({ type: 'bigint', nullable: true })
-    object_group_id: string | null;
+    item_group_id: string | null;
 
     @Column({ type: 'bigint', nullable: true })
-    object_id: string | null;
+    item_id: string | null;
     
     @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()'})
     created_at: Date;
@@ -30,11 +30,11 @@ export class EventsImpact {
     @JoinColumn({ name: 'event_id' })
     event: Event;
 
-    @ManyToOne(() => ObjectGroup, (group) => group.impacts, { nullable: true })
-    @JoinColumn({ name: 'object_group_id' })
-    objectGroup: ObjectGroup | null;
+    @ManyToOne(() => ItemGroup, (group) => group.impacts, { nullable: true })
+    @JoinColumn({ name: 'item_group_id' })
+    itemGroup: ItemGroup | null;
 
-    @ManyToOne(() => Object, (object) => object.impacts, { nullable: true })
-    @JoinColumn({ name: 'object_id' })
-    object: Object | null;
+    @ManyToOne(() => Item, (item) => item.impacts, { nullable: true })
+    @JoinColumn({ name: 'item_id' })
+    item: Item | null;
 }

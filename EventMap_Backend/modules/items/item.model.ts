@@ -1,10 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { ObjectGroup } from '../objectGroups/objectGroup.model';
+import { ItemGroup } from '../itemGroups/itemGroup.model';
 import { Project } from '../projects/project.model';
 import { EventsImpact } from '../eventImpacts/eventImpact.model';
 
-@Entity('Objects')
-export class Object {
+@Entity('Items')
+export class Item {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: string;
 
@@ -18,7 +18,7 @@ export class Object {
     description: string;
 
     @Column({ type: 'bigint', nullable: true })
-    object_group_id: number | null;
+    item_group_id: number | null;
 
     @Column({ type: 'bigint', nullable: false })
     project_id: string;
@@ -32,14 +32,14 @@ export class Object {
     @Column({ type: 'datetime2', nullable: true })
     deleted_at: Date | null;
 
-    @ManyToOne(() => ObjectGroup, (group) => group.objects, { nullable: true })
-    @JoinColumn({ name: 'object_group_id' })
-    objectGroup: ObjectGroup | null;
+    @ManyToOne(() => ItemGroup, (group) => group.items, { nullable: true })
+    @JoinColumn({ name: 'item_group_id' })
+    itemGroup: ItemGroup | null;
 
-    @ManyToOne(() => Project, (project) => project.objects, { nullable: true })
+    @ManyToOne(() => Project, (project) => project.items, { nullable: true })
     @JoinColumn({ name: 'project_id' })
     project: Project | null;
 
-    @OneToMany(() => EventsImpact, (impact) => impact.object)
+    @OneToMany(() => EventsImpact, (impact) => impact.item)
     impacts: EventsImpact[];
 }

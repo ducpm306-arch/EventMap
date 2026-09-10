@@ -8,11 +8,11 @@ export class EventImpactDto {
 
     @IsOptional()
     @IsString()
-    @Matches(/^\d+$/, { message: 'object_group_id là bigint hợp lệ'})
-    object_group_id: string | null;
+    @Matches(/^\d+$/, { message: 'item_group_id là bigint hợp lệ'})
+    item_group_id: string | null;
 
     @IsOptional()
     @IsString()
-    @Matches(/^\d+$/, {message: 'object_id phải là bigint hợp lệ'})
-    object_id: string | null;    
+    @Matches(/^\d+$/, {message: 'item_id phải là bigint hợp lệ'})
+    item_id: string | null;    
 }

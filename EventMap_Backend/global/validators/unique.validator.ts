@@ -45,9 +45,9 @@ export function IsUnique(
   field?: string,
   validationOptions?: ValidationOptions,
 ): PropertyDecorator {
-  return (object: object, propertyName: string | symbol) => {
+  return (target: object, propertyName: string | symbol) => {
     registerDecorator({
-      target: object.constructor,
+      target: target.constructor,
       propertyName: propertyName.toString(),
       options: validationOptions,
       constraints: [entity, field] satisfies IsUniqueConstraints,

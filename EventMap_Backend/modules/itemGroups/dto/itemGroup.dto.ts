@@ -1,6 +1,6 @@
-import { IsHexColor, IsNotEmpty, IsString, MaxLength } from "class-validator";
+import { IsNotEmpty, IsString, Matches, MaxLength } from "class-validator";
 
-export class ObjectGroupDto {
+export class ItemGroupDto {
     @IsString()
     @MaxLength(200)
     @IsNotEmpty()
@@ -15,6 +15,6 @@ export class ObjectGroupDto {
     @IsNotEmpty()
     description: string;
 
-    @Matches(/^\d+$, { message : 'project_id phải là bigint hợp lệ' })
+    @Matches(/^\d+$/, { message : 'project_id phải là bigint hợp lệ' })
     project_id: string | null;
 }

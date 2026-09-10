@@ -1,6 +1,6 @@
-import { IsNotEmpty, MaxLength } from "class-validator";
+import { IsNotEmpty, IsString, Matches, MaxLength } from "class-validator";
 
-export class ObjectDto {
+export class ItemDto {
     @IsString()
     @MaxLength(200)
     @IsNotEmpty()
@@ -14,8 +14,8 @@ export class ObjectDto {
     @IsNotEmpty()
     description: string;
 
-    @Matches(/^\d+$/, {message: 'object_group_id phải là bigint hợp lệ'})
-    object_group_id: number;
+    @Matches(/^\d+$/, {message: 'item_group_id phải là bigint hợp lệ'})
+    item_group_id: number;
 
     @IsNotEmpty()
     @Matches(/^\d+$/, {message: 'project_id phải là bigint hợp lệ'})

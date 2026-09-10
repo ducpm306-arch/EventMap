@@ -2,8 +2,8 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { Account } from '../accounts/account.model';
 import { Map } from '../maps/map.model';
 import { Event } from '../events/event.model';
-import { Object } from '../objects/object.model';
-import { ObjectGroup } from '../objectGroups/objectGroup.model';
+import { Item } from '../items/item.model';
+import { ItemGroup } from '../itemGroups/itemGroup.model';
 
 @Entity('Projects')
 export class Project {
@@ -42,9 +42,9 @@ export class Project {
     @OneToMany(() => Event, (event) => event.project)
     events: Event[];
 
-    @OneToMany(() => Object, (object) => object.project)
-    objects: Object[];
+    @OneToMany(() => Item, (item) => item.project)
+    items: Item[];
 
-    @OneToMany(() => ObjectGroup, (group) => group.project)
-    objectGroups: ObjectGroup[];
+    @OneToMany(() => ItemGroup, (group) => group.project)
+    itemGroups: ItemGroup[];
 }

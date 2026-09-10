@@ -1,10 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Project } from '../projects/project.model';
-import { Object } from '../objects/object.model';
+import { Item } from '../items/item.model';
 import { EventsImpact } from '../eventImpacts/eventImpact.model';
 
-@Entity('ObjectGroups')
-export class ObjectGroup {
+@Entity('ItemGroups')
+export class ItemGroup {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: string;
 
@@ -29,13 +29,13 @@ export class ObjectGroup {
     @Column({ type: 'datetime2', nullable: true })
     deleted_at: Date | null;
 
-    @ManyToOne(() => Project, (project) => project.objectGroups, { nullable: true })
+    @ManyToOne(() => Project, (project) => project.itemGroups, { nullable: true })
     @JoinColumn({ name: 'project_id' })
     project: Project | null;
 
-    @OneToMany(() => Object, (object) => object.objectGroup)
-    objects: Object[];
+    @OneToMany(() => Item, (item) => item.itemGroup)
+    items: Item[];
 
-    @OneToMany(() => EventsImpact, (impact) => impact.objectGroup)
+    @OneToMany(() => EventsImpact, (impact) => impact.itemGroup)
     impacts: EventsImpact[];
 }
