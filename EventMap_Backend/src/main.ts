@@ -2,8 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ResponseInterceptor } from './interceptors/response.interceptor';
-import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { ResponseInterceptor } from '../interceptors/response.interceptor';
+import { HttpExceptionFilter } from '../filters/http-exception.filter';
 import { useContainer } from 'class-validator';
 
 declare const module: any;
@@ -11,7 +11,7 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new ResponseInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter());
 

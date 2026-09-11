@@ -4,7 +4,7 @@ import { ItemGroup } from '../itemGroups/itemGroup.model';
 import { Item } from '../items/item.model';
 
 @Entity('EventsImpacts')
-export class EventsImpact {
+export class EventImpact {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: string;
 

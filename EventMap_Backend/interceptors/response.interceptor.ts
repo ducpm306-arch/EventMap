@@ -3,8 +3,8 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ResponseData } from 'src/global/globalClass';
-import { HttpStatus, HttpMessage } from 'src/global/globalEnum';
+import { ResponseData } from '../global/globalClass';
+import { HttpStatus, HttpMessage } from '../global/globalEnum';
 
 @Injectable()
 export class ResponseInterceptor<T> implements NestInterceptor<T, ResponseData<T>> {

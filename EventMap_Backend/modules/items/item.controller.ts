@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
 import { ItemService } from "./item.service";
 import { ItemDto } from "./dto/item.dto";
 
 @Controller('items')
 export class ItemController {
-    constructor(private readonly itemService: ItemService)
+    constructor(private readonly itemService: ItemService) {}
 
     @Get()
     getItem() {
@@ -23,7 +23,7 @@ export class ItemController {
 
     @Put('/:id')
     updateItem(@Body() dto: ItemDto, @Param('id') id: string) {
-        return this.itemService.updateItem(id, dto);
+        return this.itemService.updateItem(dto, id);
     }    
 
     @Delete('/:id')

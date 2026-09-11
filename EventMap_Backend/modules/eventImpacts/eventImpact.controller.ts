@@ -1,10 +1,10 @@
-import { Body, Controller, Param } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { EventImpactService } from "./eventImpact.service";
 import { EventImpactDto } from "./dto/eventImpact.dto";
 
 @Controller('event-impacts')
 export class EventImpactController {
-    constructor(private readonly eventImpactService: EventImpactService)
+    constructor(private readonly eventImpactService: EventImpactService) {}
 
     @Get()
     getEventImpactService() {

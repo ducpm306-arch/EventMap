@@ -1,10 +1,10 @@
-import { Controller, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
 import { ItemGroupDto } from "./dto/itemGroup.dto";
 import { ItemGroupService } from "./itemGroup.service";
 
 @Controller('item-groups')
 export class ItemGroupController {
-    constructor(private readonly itemGroupService: ItemGroupService)
+    constructor(private readonly itemGroupService: ItemGroupService) {}
 
     @Get()
     getItemGroup() {
@@ -23,7 +23,7 @@ export class ItemGroupController {
 
     @Put('/:id')
     updateItemGroup(@Body() dto: ItemGroupDto, @Param("id") id: string) {
-        return this.itemGroupService.updateItemGroup(id, dto);
+        return this.itemGroupService.updateItemGroup(dto, id);
     }
 
     @Delete('/:id')

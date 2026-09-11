@@ -16,5 +16,7 @@ export class ItemGroupDto {
     description: string;
 
     @Matches(/^\d+$/, { message : 'project_id phải là bigint hợp lệ' })
-    project_id: string | null;
+    @IsString()
+    @IsNotEmpty()
+    project_id: string;
 }

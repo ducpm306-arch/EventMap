@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Project } from '../projects/project.model';
 import { Item } from '../items/item.model';
-import { EventsImpact } from '../eventImpacts/eventImpact.model';
+import { EventImpact } from '../eventImpacts/eventImpact.model';
 
 @Entity('ItemGroups')
 export class ItemGroup {
@@ -17,8 +17,8 @@ export class ItemGroup {
     @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
     description: string;
 
-    @Column({ type: 'bigint', nullable: true })
-    project_id: string | null;
+    @Column({ type: 'bigint', nullable: false })
+    project_id: string;
 
     @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()'})
     created_at: Date;
@@ -29,13 +29,13 @@ export class ItemGroup {
     @Column({ type: 'datetime2', nullable: true })
     deleted_at: Date | null;
 
-    @ManyToOne(() => Project, (project) => project.itemGroups, { nullable: true })
+    @ManyToOne(() => Project, (project) => project.itemGroups, { nullable: false })
     @JoinColumn({ name: 'project_id' })
-    project: Project | null;
+    project: Project;
 
     @OneToMany(() => Item, (item) => item.itemGroup)
     items: Item[];
 
-    @OneToMany(() => EventsImpact, (impact) => impact.itemGroup)
-    impacts: EventsImpact[];
+    @OneToMany(() => EventImpact, (impact) => impact.itemGroup)
+    impacts: EventImpact[];
 }

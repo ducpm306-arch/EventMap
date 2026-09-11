@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ItemGroup } from '../itemGroups/itemGroup.model';
 import { Project } from '../projects/project.model';
-import { EventsImpact } from '../eventImpacts/eventImpact.model';
+import { EventImpact } from '../eventImpacts/eventImpact.model';
 
 @Entity('Items')
 export class Item {
@@ -18,7 +18,7 @@ export class Item {
     description: string;
 
     @Column({ type: 'bigint', nullable: true })
-    item_group_id: number | null;
+    item_group_id: string | null;
 
     @Column({ type: 'bigint', nullable: false })
     project_id: string;
@@ -40,6 +40,6 @@ export class Item {
     @JoinColumn({ name: 'project_id' })
     project: Project | null;
 
-    @OneToMany(() => EventsImpact, (impact) => impact.item)
-    impacts: EventsImpact[];
+    @OneToMany(() => EventImpact, (impact) => impact.item)
+    impacts: EventImpact[];
 }

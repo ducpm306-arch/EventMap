@@ -11,10 +11,12 @@ export class ProjectDto {
     description: string;
 
     @IsString()
+    @IsNotEmpty()
     @Matches(/^\d+$/, {message: 'map_id phải là bigint hợp lệ'})
     map_id: string;
 
     @IsString()
+    @IsNotEmpty()
     @Matches(/^\d+$/, {message: 'account_id phải là bigint hợp lệ'})
     account_id: string;
 }

@@ -1,10 +1,10 @@
-import { Body, Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
 import { EventService } from "./event.service";
 import { EventDto } from "./dto/event.dto";
 
 @Controller('events')
 export class EventController {
-    constructor (private readonly eventService: EventService)
+    constructor(private readonly eventService: EventService) {}
 
     @Get()
     getEvent() {
@@ -27,7 +27,7 @@ export class EventController {
     }
 
     @Delete('/:id')
-    deleteEvent(@Param('id') id: stirng) {
+    deleteEvent(@Param('id') id: string) {
         return this.eventService.deleteEvent(id);
     }
 }

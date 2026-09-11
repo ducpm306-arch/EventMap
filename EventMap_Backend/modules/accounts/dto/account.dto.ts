@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { Account } from '../account.model';
-import { IsUnique } from '../../../../global/validators/unique.validator';
+import { IsUnique } from '../../../global/validators/unique.validator';
 
 export class AccountDto {
   @IsString()
