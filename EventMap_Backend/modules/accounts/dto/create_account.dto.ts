@@ -2,7 +2,7 @@ import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 import { Account } from '../account.model';
 import { IsUnique } from '../../../global/validators/unique.validator';
 
-export class AccountDto {
+export class CreateAccountDto {
   @IsString()
   @MaxLength(200)
   @IsNotEmpty()

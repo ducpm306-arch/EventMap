@@ -1,33 +1,41 @@
-import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
-import { ItemService } from "./item.service";
-import { ItemDto } from "./dto/item.dto";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Delete,
+} from '@nestjs/common';
+import { ItemService } from './item.service';
+import { ItemDto } from './dto/create_item.dto';
 
 @Controller('items')
 export class ItemController {
-    constructor(private readonly itemService: ItemService) {}
+  constructor(private readonly itemService: ItemService) {}
 
-    @Get()
-    getItem() {
-        return this.itemService.getItem();
-    }
+  @Get()
+  getItem() {
+    return this.itemService.getItem();
+  }
 
-    @Post()
-    createItem(@Body() dto: ItemDto) {
-        return this.itemService.createItem(dto);
-    }
+  @Post()
+  createItem(@Body() dto: ItemDto) {
+    return this.itemService.createItem(dto);
+  }
 
-    @Get('/:id') 
-    detailItem(@Param('id') id: string) {
-        return this.itemService.detailItem(id);
-    }
+  @Get('/:id')
+  detailItem(@Param('id') id: string) {
+    return this.itemService.detailItem(id);
+  }
 
-    @Put('/:id')
-    updateItem(@Body() dto: ItemDto, @Param('id') id: string) {
-        return this.itemService.updateItem(dto, id);
-    }    
+  @Put('/:id')
+  updateItem(@Body() dto: ItemDto, @Param('id') id: string) {
+    return this.itemService.updateItem(dto, id);
+  }
 
-    @Delete('/:id')
-    deleteItem(@Param('id') id: string) {
-        return this.itemService.deleteItem(id);
-    }
+  @Delete('/:id')
+  deleteItem(@Param('id') id: string) {
+    return this.itemService.deleteItem(id);
+  }
 }

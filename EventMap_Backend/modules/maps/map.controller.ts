@@ -1,33 +1,41 @@
-import { Body, Controller, Get, Param, Post, Put, Delete } from "@nestjs/common";
-import { MapService } from "./map.service";
-import { MapDto } from "./dto/map.dto";
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Delete,
+} from '@nestjs/common';
+import { MapService } from './map.service';
+import { MapDto } from './dto/create_map.dto';
 
 @Controller('maps')
 export class MapController {
-    constructor(private readonly mapService: MapService) {}
+  constructor(private readonly mapService: MapService) {}
 
-    @Get()
-    getMap() {
-        return this.mapService.getMap();
-    }
+  @Get()
+  getMap() {
+    return this.mapService.getMap();
+  }
 
-    @Post()
-    createMap(@Body() dto: MapDto) {
-        return this.mapService.createMap(dto);
-    }
+  @Post()
+  createMap(@Body() dto: MapDto) {
+    return this.mapService.createMap(dto);
+  }
 
-    @Get('/:id') 
-    detailMap(@Param('id') id: string) {
-        return this.mapService.detailMap(id);
-    }
+  @Get('/:id')
+  detailMap(@Param('id') id: string) {
+    return this.mapService.detailMap(id);
+  }
 
-    @Put('/:id')
-    updateMap(@Body() dto: MapDto, @Param('id') id: string) {
-        return this.mapService.updateMap(dto, id);
-    }    
+  @Put('/:id')
+  updateMap(@Body() dto: MapDto, @Param('id') id: string) {
+    return this.mapService.updateMap(dto, id);
+  }
 
-    @Delete('/:id')
-    deleteMap(@Param('id') id: string) {
-        return this.mapService.deleteMap(id);
-    }
+  @Delete('/:id')
+  deleteMap(@Param('id') id: string) {
+    return this.mapService.deleteMap(id);
+  }
 }

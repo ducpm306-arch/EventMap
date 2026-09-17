@@ -52,7 +52,7 @@ CREATE TABLE Events(
     id              BIGINT PRIMARY KEY IDENTITY(1,1),
     name            NVARCHAR(200) NOT NULL,
     event_date      DATE NOT NULL,
-    description     NVARCHAR(MAX) NOT NULL,
+    description     NVARCHAR(MAX) NULL,
     project_id      BIGINT NOT NULL,
 
     created_at      DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),

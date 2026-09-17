@@ -13,7 +13,7 @@ export class Event{
     @Column({type: 'date', nullable: false})
     event_date: Date;
 
-    @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
+    @Column({ type: 'nvarchar', length: 'MAX', nullable: true })
     description: string;
 
     @Column({type: 'bigint', nullable: false})
