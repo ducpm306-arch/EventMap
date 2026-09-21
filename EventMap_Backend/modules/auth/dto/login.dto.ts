@@ -1,0 +1,9 @@
+export class Login {
+  @IsString()
+  @IsNotEmpty()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password_hash: string;
+}

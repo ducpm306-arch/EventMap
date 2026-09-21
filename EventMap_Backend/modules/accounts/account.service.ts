@@ -37,4 +37,8 @@ export class AccountService {
     const result = await this.accountRepo.delete(id);
     return (result.affected ?? 0) > 0;
   }
+
+  findByEmail(email: string): Promise<Account | null> {
+    return this.accountRepo.findOneBy({ email });
+  }
 }
