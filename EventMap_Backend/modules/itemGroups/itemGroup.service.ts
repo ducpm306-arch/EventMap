@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateItemGroupDto, ItemGroupDto } from './dto/create_itemGroup.dto';
+import { CreateItemGroupDto } from './dto/create_itemGroup.dto';
 import { ItemGroup } from './itemGroup.model';
 import { UpdateItemGroupDto } from './dto/update_itemGroup.dto';
 

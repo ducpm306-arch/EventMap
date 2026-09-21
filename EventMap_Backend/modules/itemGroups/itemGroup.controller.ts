@@ -7,8 +7,9 @@ import {
   Put,
   Delete,
 } from '@nestjs/common';
-import { ItemGroupDto } from './dto/create_itemGroup.dto';
+import { CreateItemGroupDto } from './dto/create_itemGroup.dto';
 import { ItemGroupService } from './itemGroup.service';
+import { UpdateItemGroupDto } from './dto/update_itemGroup.dto';
 
 @Controller('item-groups')
 export class ItemGroupController {
@@ -20,7 +21,7 @@ export class ItemGroupController {
   }
 
   @Post()
-  createItemGroup(@Body() dto: ItemGroupDto) {
+  createItemGroup(@Body() dto: CreateItemGroupDto) {
     return this.itemGroupService.createItemGroup(dto);
   }
 
@@ -30,7 +31,7 @@ export class ItemGroupController {
   }
 
   @Put('/:id')
-  updateItemGroup(@Body() dto: ItemGroupDto, @Param('id') id: string) {
+  updateItemGroup(@Body() dto: UpdateItemGroupDto, @Param('id') id: string) {
     return this.itemGroupService.updateItemGroup(dto, id);
   }
 

@@ -8,7 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { MapService } from './map.service';
-import { MapDto } from './dto/create_map.dto';
+import { CreateMapDto } from './dto/create_map.dto';
+import { UpdateMapDto } from './dto/update_map.dto';
 
 @Controller('maps')
 export class MapController {
@@ -20,7 +21,7 @@ export class MapController {
   }
 
   @Post()
-  createMap(@Body() dto: MapDto) {
+  createMap(@Body() dto: CreateMapDto) {
     return this.mapService.createMap(dto);
   }
 
@@ -30,7 +31,7 @@ export class MapController {
   }
 
   @Put('/:id')
-  updateMap(@Body() dto: MapDto, @Param('id') id: string) {
+  updateMap(@Body() dto: UpdateMapDto, @Param('id') id: string) {
     return this.mapService.updateMap(dto, id);
   }
 

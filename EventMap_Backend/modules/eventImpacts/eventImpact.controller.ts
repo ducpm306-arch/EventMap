@@ -8,7 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { EventImpactService } from './eventImpact.service';
-import { EventImpactDto } from './dto/create_eventImpact.dto';
+import { CreateEventImpactDto } from './dto/create_eventImpact.dto';
+import { UpdateEventImpactDto } from './dto/update_eventImpact.dto';
 
 @Controller('event-impacts')
 export class EventImpactController {
@@ -20,7 +21,7 @@ export class EventImpactController {
   }
 
   @Post()
-  createEventImpactService(@Body() dto: EventImpactDto) {
+  createEventImpactService(@Body() dto: CreateEventImpactDto) {
     return this.eventImpactService.createEvenImpact(dto);
   }
 
@@ -31,7 +32,7 @@ export class EventImpactController {
 
   @Put('/:id')
   updateEvenImpactService(
-    @Body() dto: EventImpactDto,
+    @Body() dto: UpdateEventImpactDto,
     @Param('id') id: string,
   ) {
     return this.eventImpactService.updateEvenImpact(dto, id);

@@ -5,6 +5,11 @@ import { EventImpact } from './eventImpact.model';
 import { CreateEventImpactDto } from './dto/create_eventImpact.dto';
 import { UpdateEventImpactDto } from './dto/update_eventImpact.dto';
 
+interface assertTargetFields {
+  item_group_id?: string | null;
+  item_id?: string | null;
+}
+
 @Injectable()
 export class EventImpactService {
   constructor(
@@ -33,11 +38,6 @@ export class EventImpactService {
     this.assertTarget(dto);
     await this.eventImpactRepo.update(id, dto);
     return this.detailEvenImpact(id);
-  }
-
-  interface assertTargetFields {
-    item_group_id?: string;
-    item_id?: string;
   }
 
   private assertTarget(dto: assertTargetFields): void {

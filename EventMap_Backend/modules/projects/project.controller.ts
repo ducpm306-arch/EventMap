@@ -7,8 +7,9 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ProjectDto } from './dto/create_project.dto';
+import { CreateProjectDto } from './dto/create_project.dto';
 import { ProjectService } from './project.service';
+import { UpdateProjectDto } from './dto/update_project.dto';
 
 @Controller('projects')
 export class ProjectController {
@@ -20,7 +21,7 @@ export class ProjectController {
   }
 
   @Post()
-  createProject(@Body() dto: ProjectDto) {
+  createProject(@Body() dto: CreateProjectDto) {
     return this.projectService.createProject(dto);
   }
 
@@ -30,7 +31,7 @@ export class ProjectController {
   }
 
   @Put('/:id')
-  updateProject(@Body() dto: ProjectDto, @Param('id') id: string) {
+  updateProject(@Body() dto: UpdateProjectDto, @Param('id') id: string) {
     return this.projectService.updateProject(dto, id);
   }
 
