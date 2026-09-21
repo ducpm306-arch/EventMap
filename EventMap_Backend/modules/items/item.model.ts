@@ -1,45 +1,60 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ItemGroup } from '../itemGroups/itemGroup.model';
 import { Project } from '../projects/project.model';
 import { EventImpact } from '../eventImpacts/eventImpact.model';
 
 @Entity('Items')
 export class Item {
-    @PrimaryGeneratedColumn({ type: 'bigint' })
-    id: string;
+  @PrimaryGeneratedColumn({ type: 'bigint' })
+  id: string;
 
-    @Column({ type: 'nvarchar', length: 200, nullable: false })
-    name: string;
+  @Column({ type: 'varchar', length: 200, nullable: false })
+  name: string;
 
-    @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
-    boundary: string;
+  @Column({ type: 'longtext', nullable: false })
+  boundary: string;
 
-    @Column({ type: 'nvarchar', length: 'MAX', nullable: false })
-    description: string;
+  @Column({ type: 'longtext', nullable: false })
+  description: string;
 
-    @Column({ type: 'bigint', nullable: true })
-    item_group_id: string | null;
+  @Column({ type: 'bigint', nullable: true })
+  item_group_id: string | null;
 
-    @Column({ type: 'bigint', nullable: false })
-    project_id: string;
+  @Column({ type: 'bigint', nullable: false })
+  project_id: string;
 
-    @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()'})
-    created_at: Date;
+  @Column({
+    type: 'datetime',
+    nullable: false,
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  created_at: Date;
 
-    @Column({ type: 'datetime2', nullable: false, default: () => 'SYSUTCDATETIME()' })
-    updated_at: Date;
+  @Column({
+    type: 'datetime',
+    nullable: false,
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updated_at: Date;
 
-    @Column({ type: 'datetime2', nullable: true })
-    deleted_at: Date | null;
+  @Column({ type: 'datetime', nullable: true })
+  deleted_at: Date | null;
 
-    @ManyToOne(() => ItemGroup, (group) => group.items, { nullable: true })
-    @JoinColumn({ name: 'item_group_id' })
-    itemGroup: ItemGroup | null;
+  @ManyToOne(() => ItemGroup, (group) => group.items, { nullable: true })
+  @JoinColumn({ name: 'item_group_id' })
+  itemGroup: ItemGroup | null;
 
-    @ManyToOne(() => Project, (project) => project.items, { nullable: true })
-    @JoinColumn({ name: 'project_id' })
-    project: Project | null;
+  @ManyToOne(() => Project, (project) => project.items, { nullable: true })
+  @JoinColumn({ name: 'project_id' })
+  project: Project | null;
 
-    @OneToMany(() => EventImpact, (impact) => impact.item)
-    impacts: EventImpact[];
+  @OneToMany(() => EventImpact, (impact) => impact.item)
+  impacts: EventImpact[];
 }

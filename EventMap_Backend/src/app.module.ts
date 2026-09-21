@@ -21,19 +21,17 @@ import { ProjectModule } from '../modules/projects/project.module';
 
 @Module({
   imports: [
-  TypeOrmModule.forRoot({
-      type: 'mssql',
+    TypeOrmModule.forRoot({
+      type: 'mysql',
       host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT ?? '1433', 10),
+      port: parseInt(process.env.DB_PORT ?? '3306', 10),
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || '123456789',
       database: process.env.DB_NAME || 'EventMap',
       entities: [Account, Map, Project, Event, Item, ItemGroup, EventImpact],
-      options: {
-        trustServerCertificate: true,
-      },
-      synchronize: false,
-  }),
+      charset: 'utf8mb4_unicode_ci',
+      synchronize: true,
+    }),
     AccountModule,
     EventImpactsModule,
     EventModule,
@@ -46,9 +44,6 @@ import { ProjectModule } from '../modules/projects/project.module';
     }),
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
-  ],
+  providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
 export class AppModule {}
